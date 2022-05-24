@@ -9,7 +9,7 @@ from myadmin.models import Orders, Product
 
 
 def index(request):
-    if not request.session['member_is_login']:
+    if not request.session.get('member_is_login', None):  # 已经登录，跳转主页
         message = "请您先完成登录哦！"
         return render(request, 'web/index.html', locals())  # 跳转首页
     # 找到本用户的"未完成交易"订单
