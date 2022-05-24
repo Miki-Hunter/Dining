@@ -1,0 +1,82 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+{% load static %}
+<section class="about-banner relative">
+                <div class="overlay overlay-bg"></div>
+                <div class="container">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="about-content col-lg-12">
+                            <h1 class="text-white">
+                                Menus
+                            </h1>
+                            <p class="text-white link-nav"><a href="{% url 'index_index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'web_menu' %}"> Menus</a></p>
+                        </div>
+                    </div>
+                </div>
+</section>
+<section>
+   <div class="container">
+        <div class="col-lg-8">
+            {% if info %}
+                  <div class="alert alert-success hide">
+                      {{ info }}
+                  </div>
+            {% endif %}
+            <div class="panel panel-warning">
+                <div class="panel-heading"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><h4>购 物 车</h4></div>
+                <table class="table table-striped" name="my_form">
+                        <tr>
+                            <th>序号</th>
+                            <th>菜品</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>总价</th>
+                            <th>删除</th>
+                        </tr>
+                        {% for product in order_list %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{product.name}}</td>
+                            <td class="num" name="num">
+                                <i onclick="window.location='{% url 'web_cart_decrease' product.product_id  %}?pid={{product.product_id}}&num={{product.num|add:-1}}'" class="btn btn-default">-</i>
+                                <span>{{product.num}}</span>
+                                <i onclick="window.location='{% url 'web_cart_add' product.product_id %}?pid={{product.product_id}}&num={{product.num|add:1}}'" class="btn btn-default">+</i>
+                            </td>
+                            <td class="price" name="price">{{product.price}}</td>
+                            <td class="whole_price">{{product.whole_price}}</td>
+                            <td><a href="{% url 'web_cart_del' product.product_id %}" class="btn btn-danger btn-xs" role="button">删除</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    <li class="list-group-item">
+                        <b>购买方式: &nbsp; </b>
+                        <input type="radio" name="ptype" checked value="1"> 堂吃 &nbsp;
+                        <input type="radio" name="ptype" value="2"> 打包 &nbsp;
+                    </li>
+<!--                    <li class="list-group-item">-->
+<!--                        <b>支付方式: &nbsp; </b>-->
+<!--                        <input type="radio" name="bank" checked value="3"> 现金 &nbsp;-->
+<!--                        <input type="radio" name="bank" value="4"> 支付宝 &nbsp;-->
+<!--                        <input type="radio" name="bank" value="1"> 微信-->
+<!--                    </li>-->
+
+                    <div class="panel-footer" style="height:50px">
+                        <form action="{% url 'index_index'  %}" method="post">
+                            {% if request.session.webuser.is_vip %}
+                        <div style="width:120px;float:left;margin:5px 0px;">会员价：￥<span style="color:red;font-weight:bold;">{{ whole_price_vip }}</span>元</div>
+                            {% else %}
+                        <div style="width:120px;float:left;margin:5px 0px;">合计：￥<span style="color:red;font-weight:bold;">{{ whole_price }}</span>元</div>
+                            {% endif %}
+                            <input type="hidden" name="whole_price" value="{{ whole_price }}" />
+                            <button type="submit" class="btn btn-primary" style="width:80px;float:right">结算</button>
+                        <a href="{% url 'web_cart_clear' %}" class="btn btn-danger" style="width:70px;float:right;margin-right:10px;">清空</a>
+                        </form>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

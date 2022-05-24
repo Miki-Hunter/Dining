@@ -1,0 +1,83 @@
+﻿{% extends "web/base.html" %}
+{% block main_body %}
+{% load static %}
+<!--    gallery在于给顾客一个第一印象，每种菜式展示一些典型图片-->
+            <section class="about-banner relative">
+                <div class="overlay overlay-bg"></div>
+                <div class="container">				
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="about-content col-lg-12">
+                            <h1 class="text-white">
+                                Gallery				
+                            </h1>	
+                            <p class="text-white link-nav"><a href="templates/web/index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="gallery.html"> Gallery</a></p>
+                        </div>	
+                    </div>
+                </div>
+            </section>
+            <section class="gallery-area section-gap" id="gallery">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="menu-content pb-70 col-lg-8">
+                            <div class="title text-center">
+                                <h1 class="mb-10">Food and Customer Gallery</h1>
+                                <p>Who are in extremely love with eco friendly system.</p>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+                <div class="container-fluid">
+                    <ul class="filter-wrap filters col-lg-12 no-padding">
+                        <li class="active" data-filter="*">全部菜品</li>
+                        <li data-filter=".breakfast">早餐</li>
+                        <li data-filter=".lunch">午餐</li>
+                        <li data-filter=".dinner">晚餐</li>
+                        <li data-filter=".desserts">甜点</li>
+                        <li data-filter=".salad">沙拉</li>
+                        <li data-filter=".winecard">饮料</li>
+                        <li data-filter=".special">特色菜</li>
+                    </ul>
+                </div>
+                <div class="container">                                       
+                    <div class="filters-content">
+                        <div class="row grid">
+                            <div class="col-lg-4 col-md-6 col-sm-6 all breakfast">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g1.jpg'%}" alt="">
+                            	</div>	                          
+                            </div>                           
+                            <div class="col-lg-4 col-md-6 col-sm-6 all lunch">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g2.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 all dinner">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g3.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 all desserts">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g3.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 all salad">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g5.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 all winecard">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g7.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 all special">
+                            	<div class="single-gallery">
+                                    <img class="img-fluid" src="{% static 'web/img/gallery/g8.jpg'%}" alt="">
+                            	</div>                            
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </section>
+{% endblock %}

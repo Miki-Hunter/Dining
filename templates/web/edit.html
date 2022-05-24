@@ -1,0 +1,62 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+        <section class="relative about-banner">
+            <div class="overlay overlay-bg"></div>
+            <div class="container">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="about-content col-lg-12">
+                        <h1 class="text-white">
+                            Contact Us
+                        </h1>
+                        <p class="text-white link-nav"><a href="#">Home </a><span class="lnr lnr-arrow-right"></span>  <a href="#"> Contact Us</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+              {% if message %}
+                  <div class="alert alert-danger hide">{{ message }}</div>
+              {% endif %}
+        <section class="contact-page-area section-gap">
+            <div class="container">
+        <div class="col-md-6 col-md-offset-6">
+          <form action="{% url 'web_edit' member.id%}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h2 class="text-center">修改您的个人信息！</h2>
+              <div class="form-group">
+              <label>用户账号：</label>
+<!--                     disabled readonly 关键字限定，使其不可修改-->
+                    <input type="text"  disabled readonly name="name" value="{{member.name}}" class="form-control" placeholder="账号" />
+              </div>
+              <div class="form-group">
+                  <label>用户昵称：</label>
+                    <input type="text" name="nickname" value="{{member.nickname}}" class="form-control"  placeholder="" />
+                </div>
+                <div class="form-group">
+                  <label>联系电话：</label>
+                    <input type="text" name="mobile" value="{{member.mobile}}" class="form-control" placeholder="" />
+                </div>
+                <div class="form-group">
+                  <label>您的邮箱：</label>
+                    <input type="text" name="email" value="{{member.email}}" class="form-control" placeholder="" />
+                </div>
+                <div class="form-group">
+                  <label>常用地址：</label>
+                    <input type="text" name="address" value="{{member.address}}" class="form-control" placeholder="" />
+                </div>
+              <div class="form-group">
+                  <label>您的头像：</label>
+                    <input type="file" name="avatar" />
+                    <img src="/static/uploads/member/{{ member.avatar }}" width="200"/>
+              </div>
+              <div class="form-group">
+                  <label>个性签名</label>
+                  <input type="text" name="introduce" value="{{member.introduce}}" class="form-control" placeholder="" />
+              </div>
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+          </form>
+
+        </div>
+            </div>
+        </section>
+{% endblock %}

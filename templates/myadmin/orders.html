@@ -1,0 +1,115 @@
+{% extends "myadmin/base.html" %}
+{% block main_body %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        订单管理
+        <small>订餐系统后台管理</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{% url 'myadmin_index' %}"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">订单信息管理</li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"><i class="fa fa-calendar"></i> 订单信息表</h3>
+              <div class="box-tools">
+                <form action="#" method="get">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="keyword" class="form-control pull-right" placeholder="功能未添加">
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+        <tr>
+                            <th>单号</th>
+                            <th>顾客ID</th>
+                            <th>菜名</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>总价</th>
+                            <th>订单状态</th>
+                            <th>支付状态</th>
+                            <th>下单时间</th>
+<!--                            <th>操作</th>-->
+                        </tr>
+                        {% for vo in orders_list %}
+                        <tr class="oid{{vo.id}}">
+                            <td>{{ vo.id }}</td>
+                            <td>{{ vo.member_id }}</td>
+                            <td>{{ vo.name }}</td>
+                            <td>{{vo.price}}</td>
+                            <td>{{vo.num}}</td>
+                            <td>{{vo.whole_price}}</td>
+                            <td>
+                                {% if vo.status == 1 %}
+                                  <span style="color:green">制作中</span>
+                                {% elif vo.status == 2 %}
+                                  <span style="color:red">无效</span>
+                                {% elif vo.status == 3 %}
+                                  <span style="color:red">已完成</span>
+                                {% else %}
+                                  <span style="color:red">未知状态</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if vo.payment_status == 1 %}
+                                  <span style="color:red">未支付</span>
+                                {% elif vo.payment_status == 2 %}
+                                  <span style="color:green">已支付</span>
+                                {% elif vo.payment_status == 3 %}
+                                  <span style="color:red">已退款</span>
+                                {% else %}
+                                  <span style="color:red">未知状态</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ vo.create_at|date:'Y-m-d H:i:s' }}</td>
+<!--                            <td>-->
+<!--                                <button type="button" onclick="doShow({{vo.id}})" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 详情</button>-->
+<!--                                {% if vo.status == 1%}-->
+<!--                                <button type="button" onclick="doChangeStatus({{vo.id}},3)" class="btn btn-info btn-xs" role="button"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完成</button>-->
+<!--                                <button type="button" onclick="doChangeStatus({{vo.id}},2)" class="btn btn-danger btn-xs" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>-->
+<!--                                {% endif %}-->
+<!--                            </td>-->
+                        </tr>
+                        {% endfor %}
+              </table>
+            </div>
+              <div class="box-footer clearfix">
+             <ul class="pagination pagination-sm no-margin pull-right">
+                 {% if plist %}
+                <li><a href="{% url 'myadmin_orders_today' pIndex|add:-1 %}">&laquo;</a></li>
+                {% for p in plist %}
+                  <li {% if p == pIndex %}class="active"{% endif %}><a href="{% url 'myadmin_orders_today' p %}">{{p}}</a></li>
+                {% endfor %}
+                <li><a href="{% url 'myadmin_orders_today' pIndex|add:1 %}">&raquo;</a></li>
+                 {% endif %}
+                 {% if plist_all %}
+                 <li><a href="{% url 'myadmin_orders_all' pIndex_all|add:-1 %}">&laquo;</a></li>
+                {% for p in plist_all %}
+                  <li {% if p == pIndex_all %}class="active"{% endif %}><a href="{% url 'myadmin_orders_all' p %}">{{p}}</a></li>
+                {% endfor %}
+                <li><a href="{% url 'myadmin_orders_all' pIndex_all|add:1 %}">&raquo;</a></li>
+                 {% endif %}
+              </ul>
+            </div>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+{% endblock %}

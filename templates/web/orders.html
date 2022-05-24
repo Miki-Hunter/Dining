@@ -1,0 +1,94 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+{% load static %}
+<section class="about-banner relative">
+                <div class="overlay overlay-bg"></div>
+                <div class="container">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="about-content col-lg-12">
+                            <h1 class="text-white">
+                                Menus
+                            </h1>
+                            <p class="text-white link-nav"><a href="{% url 'index_index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'web_menu' %}"> Menus</a></p>
+                        </div>
+                    </div>
+                </div>
+</section>
+<section>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><h4>订 单 列 表</h4>
+<!--                    <a type="button" href="{{url}}"  class="btn btn-warning btn-sm">刷 &nbsp; 新</a>-->
+                </div>
+                <table class="table table-striped">
+                        <tr>
+                            <th>单号</th>
+                            <th>店名</th>
+                            <th>菜名</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>总价</th>
+                            <th>订单状态</th>
+                            <th>支付状态</th>
+                            <th>下单时间</th>
+<!--                            <th>操作</th>-->
+                        </tr>
+                        {% for vo in orders_list %}
+                        <tr class="oid{{vo.id}}">
+                            <td>{{ vo.id }}</td>
+                            <td>{{ vo.shop_name }}</td>
+                            <td>{{ vo.name }}</td>
+                            <td>{{vo.price}}</td>
+                            <td>{{vo.num}}</td>
+                            <td>{{vo.whole_price}}</td>
+                            <td>
+                                {% if vo.status == 1 %}
+                                  <span style="color:green">制作中</span>
+                                {% elif vo.status == 2 %}
+                                  <span style="color:red">无效</span>
+                                {% elif vo.status == 3 %}
+                                  <span style="color:red">已完成</span>
+                                {% else %}
+                                  <span style="color:red">未知状态</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if vo.payment_status == 1 %}
+                                  <span style="color:red">未支付</span>
+                                {% elif vo.payment_status == 2 %}
+                                  <span style="color:green">已支付</span>
+                                {% elif vo.payment_status == 3 %}
+                                  <span style="color:red">已退款</span>
+                                {% else %}
+                                  <span style="color:red">未知状态</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ vo.create_at|date:'Y-m-d H:i:s' }}</td>
+<!--                            <td>-->
+<!--                                <button type="button" onclick="doShow({{vo.id}})" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 详情</button>-->
+<!--                                {% if vo.status == 1%}-->
+<!--                                <button type="button" onclick="doChangeStatus({{vo.id}},3)" class="btn btn-info btn-xs" role="button"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完成</button>-->
+<!--                                <button type="button" onclick="doChangeStatus({{vo.id}},2)" class="btn btn-danger btn-xs" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>-->
+<!--                                {% endif %}-->
+<!--                            </td>-->
+                        </tr>
+                        {% endfor %}
+                </table>
+            </div>
+            <div class="box-footer clearfix">
+             <ul class="pagination pagination-sm no-margin pull-right">
+                 {% if plist %}
+                <li><a href="{% url 'web_orders_index' pIndex|add:-1 %}"><button class="btn btn-danger btn-xs">&laquo;</button></a></li>
+                {% for p in plist %}
+                  <li {% if p == pIndex %}class="active"{% endif %}><a href="{% url 'web_orders_index' p %}"><button class="btn btn-info">{{p}}</button></a></li>
+                {% endfor %}
+                <li><a href="{% url 'web_orders_index' pIndex|add:1 %}"><button class="btn btn-danger btn-xs">&raquo;</button></a></li>
+                 {% endif %}
+             </ul>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

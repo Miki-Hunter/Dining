@@ -1,0 +1,36 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+{% load static %}
+              {% if message %}
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>{{ message }}</strong>
+  </div>
+              {% endif %}
+                {% if info %}
+  <div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>{{ info }}</strong>
+  </div>
+              {% endif %}
+                <section class="banner-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="banner-content">
+                                    <h6 class="text-white animated slideInLeft">Enjoy Our</h6>
+                                    <h1 class="text-white animated slideInLeft">Delicious Meal</h1>
+                                    <p class="text-white animated slideInLeft">
+                                        Gourmet restaurant for people with taste and style!<br>
+                                                Taste the Difference!
+                                    </p>
+                                    <a href="{% url 'web_menu' %}" class="primary-btn text-uppercase animated slideInLeft">Check Our Menu</a>
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <img class="img-fluid spin" src="{% static 'web/img/slider/dinner1.png'%}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+{% endblock %}

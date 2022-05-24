@@ -1,0 +1,284 @@
+﻿{% extends "web/base.html" %}
+{% load static %}
+{% block main_body %}
+            <section class="banner-area">
+                <div class="overlay overlay-bg"></div>
+                <div class="container">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="about-content col-lg-12">
+                            <h1 class="text-white">
+                                Menus
+                            </h1>
+                            <p class="text-white link-nav"><a href="{% url 'index_index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'cart_index' %}"> Cart</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                {% if info %}
+                  <div class="alert alert-success hide">
+                      {{ info }}
+                  </div>
+                {% endif %}
+            <section class="menu-area section-gap" id="menu">
+                <div class="container-fluid">
+                    <ul class="filter-wrap filters col-lg-12 no-padding">
+                        <li class="active" data-filter="*">总览</li>
+                        <li data-filter=".breakfast">早餐</li>
+                        <li data-filter=".lunch">午餐</li>
+                        <li data-filter=".dinner">晚餐</li>
+                        <li data-filter=".desserts">甜点</li>
+                        <li data-filter=".salad">沙拉</li>
+                        <li data-filter=".winecard">饮料</li>
+                        <li data-filter=".special">特色菜</li>
+                    </ul>
+                </div>
+                <div class="container">
+<!--                    <div class="filters-content">-->
+                        <div class="row grid">
+                            <form action="{% url 'cart_index'  %}" method="post">
+                            {% for vo in breakfast %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all breakfast">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for vo in lunch %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all lunch">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for vo in dinner %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all dinner">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for vo in desserts %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all desserts">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for vo in salad %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all salad">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                             {% for vo in winecard %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all winecard">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for vo in special %}
+                            <div class="col-xxl-3 col-xl-3 col-lg-2 col-md-3 col-sm-15 all special">
+                                <div class="single-menu">
+                                    <div class="menu-image">
+                                        <img src="/static/uploads/product/{{ vo.cover_pic }}" alt={{ vo.name }}  class="round_icon_another">
+                                    </div>
+                                    <div><h4 style="color:gray">{{ vo.shop_name }}</h4></div><br>
+                                    <div class="row">
+                                        <div class="col-xxl-9 col-xl-8 col-lg-6 col-md-9 col-sm-12">
+                                            <div class="title-wrap">
+                                                <h4><a style="color: red;">特 </a>{{ vo.name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="menu-price">
+                                                <h4 class="price">¥{{vo.price}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-9 col-xl-7 col-lg-6 col-md-9 col-sm-12">
+                                              <h4>销量: {{vo.sales}}</h4>
+                                        </div>
+                                        <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-3 col-sm-12">
+                                                <h4>
+                                                    <a href="{% url 'cart_add' vo.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                                </h4>
+                                        </div>
+                                    </div>
+                                    <p class="menu-info">
+                                        <span>{{ vo.info }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            </form>
+                        </div>
+<!--                    </div>                   -->
+                </div>
+
+            </section>
+{% endblock %}
+

@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>晨曦实业网上订单前台</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="{% static 'web/img/fav.png">
+        <meta name="author" content="colorlib">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta charset="UTF-8">
+<!--        <meta name="toTop" content="true">-->
+
+        <link rel="stylesheet" href="{% static 'web/css/bootstrap.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/linearicons.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/font-awesome.min.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/magnific-popup.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/jquery-ui.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/nice-select.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/animate.min.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/owl.carousel.css'%}">
+        <link rel="stylesheet" href="{% static 'web/css/style.css'%}">
+        <![endif]-->
+<!--        <link rel="stylesheet" href="{% static 'myadmin/local/css/google_fonts.css'%}">-->
+<!--        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
+<style>
+        .alert{
+            position: fixed;
+            width: 50%;
+            margin-left: 20%;
+            z-index: 2000;
+        }
+    </style>
+<!--        图片显示为圆图-->
+<style>
+    .bs-example{
+      margin: 20px;
+    }
+    .round_icon{
+  width: 34px;
+  height: 34px;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+    .round_icon_another{
+  width: 175px;
+  height: 175px;
+  display: flex;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+    </style>
+    </head>
+        <body>
+            <header id="header">
+                <div class="container main-menu">
+                    <div class="row">
+                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <a class="navbar-brand" href="#">晨曦网上订单系统</a>
+                        </div>
+                        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12">
+                            <div class="row align-items-center justify-content-center d-flex">
+                                <nav id="nav-menu-container">
+                                    <ul class="nav-menu">
+                                        <li><a href="{% url 'index_index' %}">首页</a></li>
+                                        <li><a href="{% url 'web_orders_index' 1 %}">历史订单</a></li>
+                                        <li><a href="{% url 'web_menu' %}">菜单</a></li>
+                                        <li><a href="{% url 'cart_index' %}">购物车</a></li>
+                                        {% if request.session.member_is_login %}
+                                        <li class="dropdown">
+                                            <a href="#" data-toggle="dropdown">
+                                              <img src="/static/uploads/member/{{ request.session.webuser.avatar }}" width="30"  class="round_icon">
+                                            </a>
+                                            <ul class="dropdown-menu"  style="min-width:500%">
+                                              <li class="user-header" align="center" >
+                                                <img src="/static/uploads/member/{{ request.session.webuser.avatar }}" width="150" >
+                                                  <br>
+                                                  {% if request.session.webuser.is_vip %}
+                                                <h4>晨曦实业のVIP·{{request.session.webuser.nickname}}</h4>
+                                                  {% else %}
+                                                <h4>晨曦实业の用户·{{request.session.webuser.nickname}}</h4>
+                                                  {% endif %}
+                                                    <br><strong>您的余额:</strong>
+                                                    <a href="{% url 'web_recharge' %}" class="btn btn-default btn-flat"><h5>{{request.session.webuser.money}}</h5></a>
+                                                    <br><h6>{{ request.session.webuser.introduce}}</h6><br>
+                                              </li>
+                                              <li class="dropdown-footer">
+                                                <div class="pull-left"><a href="/edit/{{ request.session.webuser.id }}" class="btn btn-default btn-flat">个人信息</a></div>
+                                                <div class="pull-right"><a href="{% url 'web_logout' %}" class="btn btn-default btn-flat">退 出</a></div>
+                                              </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="{% url 'web_logout' %}">登出</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'web_login' %}">登录</a></li>
+                                        <li><a href="{% url 'web_register' %}">注册</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                                <!-- #nav-menu-container -->					      		  
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </header>
+    {% block main_body %}
+    {% endblock %}
+
+<!--            页尾页脚-->
+        <footer class="footer-area">
+            <div class="footer-widget-wrap">
+                <div class="container">
+                    <div class="row section-gap">
+                        <div class="col-lg-4  col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h4>营业时间</h4>
+                                <ul class="hr-list">
+                                    <li class="d-flex justify-content-between">
+                                        <span>周一----周五</span> <span>08.00 am - 10.00 pm</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <span>周六</span> <span>08.00 am - 10.00 pm</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <span>周日</span> <span>08.00 am - 10.00 pm</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h4>联系我们</h4>
+                                <p>
+                                    上海市·浦东新区·翻斗花园·24号
+                                </p>
+                                <p class="number">
+                                    (+86) 13812345678 <br>
+                                    (+86) 12812345678
+                                </p>
+                                <p class="email">
+                                    cx_restaurant@gmail.com
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h4>Newsletter</h4>
+                                <p>You can trust us. we only send promo offers, not a single spam.</p>
+                                <div class="d-flex flex-row" id="mc_embed_signup">
+                                    <form class="navbar-form" action="#" method="get">
+                                        <div class="input-group add-on align-items-center d-flex">
+                                            <input class="form-control" name="email" placeholder="Your Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email address'" required="" type="email">
+                                            <div style="position: absolute; left: -5000px;">
+                                                <input name="email" tabindex="-1" value="" type="text">
+                                            </div>
+                                            <div class="input-group-btn">
+                                                <button class="genric-btn"><span class="lnr lnr-arrow-right"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="info mt-20"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom-wrap">
+                <div class="container">
+                    <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                        <p class="col-lg-8 col-md-6 col-sm-6 footer-text m-0">
+                            Copyright <script>document.write(new Date().getFullYear());</script> All rights By <a href="https://github.com/Miki-Hunter">晨曦实业</a>
+                        </p>
+                        <ul class="col-lg-4 col-md-6 col-sm-6 social-icons text-right">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+<!--        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+	    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="{% static 'web/js/vendor/jquery-2.2.4.min.js'%}"></script>
+        <script src="{% static 'web/js/jquery-ui.js'%}"></script>
+        <script src="{% static 'web/js/easing.min.js'%}"></script>
+        <script src="{% static 'web/js/hoverIntent.js'%}"></script>
+        <script src="{% static 'web/js/superfish.min.js'%}"></script>
+        <script src="{% static 'web/js/jquery.ajaxchimp.min.js'%}"></script>
+        <script src="{% static 'web/js/jquery.magnific-popup.min.js'%}"></script>
+        <script src="{% static 'web/js/jquery.nice-select.min.js'%}"></script>
+        <script src="{% static 'web/js/owl.carousel.min.js'%}"></script>
+        <script src="{% static 'web/js/isotope.pkgd.min.js'%}"></script>
+        <script src="{% static 'web/js/mail-script.js'%}"></script>
+        <script src="{% static 'web/js/main.js'%}"></script>
+        <script src="{% static 'web/js/scroll.js'%}"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!--    提示框显示问题-->
+<script>
+    $("#btn1").click(function(){
+        $(".alert-warning").addClass("show");
+        window.setTimeout(function(){
+            $(".alert-warning").removeClass("show");
+        },1000);//显示的时间
+    })
+    $("#btn2").click(function(){
+        $(".alert-success").addClass("show");
+        window.setTimeout(function(){
+            $(".alert-success").removeClass("show");
+        },1000);//显示的时间
+    })
+</script>
+<!--    购物车结算工作-->
+<script>
+    function dosubmit(){
+        if($("table.table-striped tr").length==1){
+            alert("购物车没有菜品信息！");
+            return;
+        }
+        if(!window.confirm("确定要进行结算？")){
+            return;
+        }
+        var ptype = $("input[name='ptype']:checked").val();
+        var bank = $("input[name='bank']:checked").val();
+        $.ajax({
+            type:'get',
+            url:"{% url 'web_orders_insert' %}",
+            dataType:'text',
+            data:{ptype:ptype,bank:bank},
+            async: false,
+            success:function(res){
+                if(res == "Y"){
+                    alert("订单添加成功！");
+                    window.location.href="{% url 'cart_index'%}";
+                }else{
+                    alert("订单处理失败！");
+                }
+            },
+        });
+
+    }
+</script>
+<!--&lt;!&ndash;    解决历史订单工作->-->
+<script>
+        function doShow(id){
+            $.ajax({
+                type:'get',
+                url:"{% url 'web_orders_detail' %}",
+                dataType:'text',
+                data:{oid:id},
+                async: false,
+                success:function(res){
+                    $("#myModal div.modal-body").empty().append(res);
+                    $('#myModal').modal({keyboard:false})
+                },
+            });
+        }
+
+        function doChangeStatus(id,s){
+            var info = ["","","确定要删除订单吗？","确定要完成此订单吗？"];
+            if(window.confirm(info[s])){
+                $.get("{% url 'web_orders_status' %}",{oid:id,status:s},function(data){
+                    if(data == "Y"){
+                        $("tr.oid"+id).remove();
+                    }else{
+                        alert("订单处理失败！");
+                    }
+                },'text');
+            }
+        }
+    </script>
+<!--    一个固定按钮-->
+<style>
+.d2 {
+   min-width: 100%;
+    height: 40px;
+    position: relative;
+    display:flex;
+    justify-content:flex-end;
+
+}
+.btn1 {
+  position: relative;
+  right: 10px;
+  top: 10px;
+}
+    </style>
+<!--        邮箱验证-->
+<script>
+    //展现显现错误提示信息
+    function showError(message) {
+        document.getElementById("messBox").style.display="block";
+        $("#errorMess").html(message);//修改span标签内容
+        setTimeout("hidden()",2000);
+    }
+    //隐藏错误提示信息
+    function hidden() {
+        document.getElementById("messBox").style.display="none";}
+    //邮箱验证
+    function testEmail(str) {
+        var re = /^\w+@[0-9a-z]+\.[a-z]+$/;
+        return re.test(str);
+    }
+
+$("#sendEmail").click(function () {
+        var email = $("#email").val();//获取用户输入邮箱
+        if(email===''||!testEmail(email)) {//验证邮箱格式
+            showError('邮箱格式不正确，请重输');}
+        else{
+            //按钮不可再次点击，开始倒计时
+            $.ajax({
+                url:"/reg/",
+                type:"post",
+                data:{
+                    type:'sendMessage',
+                    csrfmiddlewaretoken:'{{ csrf_token }}',
+                    email:email
+                },
+                dataType :"json",
+                success:function (reg) {
+                    // 短信发送失败
+                    if(!reg.state){
+                        showError(reg.errmsg);}
+                    else{
+                        console.log(reg.state);
+                        settime();//短信发送成功，倒计时
+                    }
+                }
+            });
+            var btn_sendEmail = $("#sendEmail");
+            var countdown=60;
+            function settime() {
+              if (countdown === 0) {
+                btn_sendEmail.attr("disabled",false);
+                btn_sendEmail.val("获取验证码");
+                return false;
+              } else {
+                btn_sendEmail.attr("disabled", true);
+                btn_sendEmail.val("重新发送(" + countdown + ")");
+                countdown--;
+              }
+              setTimeout(function() {
+                settime();
+              },1000);
+            }
+        }
+    });
+</script>
+<!--        提示框-->
+
+{% block loadjavascript %}
+<!-- 此处可加载独立的javascript程序 -->
+{% endblock %}
+<script>
+    var scrolltotop={
+    setting: {startline:200, scrollto: 0, scrollduration:1000, fadeduration:[800, 500]},
+    controlHTML: '<img src="/static/web/img/scroll.png" style="width:50px; height:50px" />',
+    controlattrs: {offsetx:20, offsety:75},
+    anchorkeyword: '#top', //Enter href value of HTML anchors on the page that should also act as "Scroll Up" links
+
+    state: {isvisible:false, shouldvisible:false},
+
+    scrollup:function(){
+        if (!this.cssfixedsupport) //if control is positioned using JavaScript
+            this.$control.css({opacity:0}) //hide control immediately after clicking it
+        var dest=isNaN(this.setting.scrollto)? this.setting.scrollto : parseInt(this.setting.scrollto)
+        if (typeof dest=="string" && jQuery('#'+dest).length==1) //check element set by string exists
+            dest=jQuery('#'+dest).offset().top
+        else
+            dest=0
+        this.$body.animate({scrollTop: dest}, this.setting.scrollduration);
+    },
+
+    keepfixed:function(){
+        var $window=jQuery(window)
+        var controlx=$window.scrollLeft() + $window.width() - this.$control.width() - this.controlattrs.offsetx
+        var controly=$window.scrollTop() + $window.height() - this.$control.height() - this.controlattrs.offsety
+        this.$control.css({left:controlx+'px', top:controly+'px'})
+    },
+
+    togglecontrol:function(){
+        var scrolltop=jQuery(window).scrollTop()
+        if (!this.cssfixedsupport)
+            this.keepfixed()
+        this.state.shouldvisible=(scrolltop>=this.setting.startline)? true : false
+        if (this.state.shouldvisible && !this.state.isvisible){
+            this.$control.stop().animate({opacity:0.5}, this.setting.fadeduration[0])
+            this.state.isvisible=true
+        }
+        else if (this.state.shouldvisible==false && this.state.isvisible){
+            this.$control.stop().animate({opacity:0}, this.setting.fadeduration[1])
+            this.state.isvisible=false
+        }
+    },
+
+
+    init:function(){
+        jQuery(document).ready(function($){
+            var mainobj=scrolltotop
+            var iebrws=document.all
+            mainobj.cssfixedsupport=!iebrws || iebrws && document.compatMode=="CSS1Compat" && window.XMLHttpRequest
+            mainobj.$body=(window.opera)? (document.compatMode=="CSS1Compat"? $('html') : $('body')) : $('html,body')
+            mainobj.$control=$('<div id="topcontrol">'+ controlHTML +'</div>')
+                .css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer'})
+                .attr({title:'Scroll to Top'})
+                .mouseenter(function() { $(this).css("opacity", "1");})
+                .mouseleave(function() { $(this).css("opacity", "0.5");})
+                .click(function(){mainobj.scrollup(); return false})
+                .appendTo('body')
+            if (document.all && !window.XMLHttpRequest && mainobj.$control.text()!='')
+                mainobj.$control.css({width:mainobj.$control.width()})
+            mainobj.togglecontrol()
+            $('a[href="' + mainobj.anchorkeyword +'"]').click(function(){
+                mainobj.scrollup()
+                return false
+            })
+            $(window).bind('scroll resize', function(e){
+                mainobj.togglecontrol()
+            })
+        })
+    }
+}
+scrolltotop.init()
+
+
+</script>
+   </body>
+</html>

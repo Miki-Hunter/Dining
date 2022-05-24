@@ -1,0 +1,52 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+<!--        <section class="relative about-banner">-->
+<!--            <div class="overlay overlay-bg"></div>-->
+<!--            <div class="container">-->
+<!--                <div class="row d-flex align-items-center justify-content-center">-->
+<!--                    <div class="about-content col-lg-12">-->
+<!--                        <h1 class="text-white">-->
+<!--                            Contact Us-->
+<!--                        </h1>-->
+<!--                        <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="contact.html"> Contact Us</a></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+        <section class="contact-page-area section-gap">
+            <div class="container">
+        <div class="col-md-6 col-md-offset-6">
+          <form action="{% url 'web_recharge' %}" method="post">
+              {% if message %}
+                  <div class="alert alert-danger hide">
+                      {{ message }}
+                  </div>
+                {% endif %}
+              {% if info %}
+                  <div class="alert alert-success hide">
+                      {{ info }}
+                  </div>
+                {% endif %}
+              {% csrf_token %}
+              <h2 class="text-center">欢迎充值</h2>
+              <div class="form-group">
+              <label>用户账号：</label>
+                  <input type="text"  disabled readonly name="name" value="{{member.name}}" class="form-control" placeholder="账号" />
+              </div>
+              <div class="form-group">
+              <label>当前余额：</label>
+                  <input type="text" disabled readonly name="money" value="{{member.money}}" class="form-control" placeholder="余额" />
+              </div>
+              <div class="form-group">
+              <label>充值金额：</label>
+                  <input type="text" name="recharge" value="{{member.money}}" class="form-control" placeholder="充值金额" />
+              </div>
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+          </form>
+            <br><br>
+            <p>还没做连接支付系统</p>
+        </div>
+            </div>
+        </section>
+{% endblock %}

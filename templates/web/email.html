@@ -1,0 +1,32 @@
+{% extends "web/base.html" %}
+{% block main_body %}
+<section class="contact-page-area section-gap">
+        <div class="container">
+        <div class="col-md-6 col-md-offset-6">
+            <form id="form" name="form" action="{% url 'web_email' %}" method="post" class="form-horizontal col-md-offset-3 "  style="margin-top:20px" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">邮箱:</label>
+                        <div>
+                            <input type="text" name="email" id="email" class="form-control"  placeholder="请输入你的邮箱">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vertify" >验证码:</label>
+                        <div >
+                            <div class="input-group">
+                                <input type="text" name="vertify" id="vertify" class="form-control"  placeholder="请输入校验码">
+                                <span class="input-group-btn">
+                                    <input type="button" id="sendEmail" class="btn btn-default" value="获取验证码">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <div id="messBox" style="display: none;position: fixed; width: 300px;height: 35px; top:50%; left:40%; z-index:10; border-radius: 10%; background-color:#8c8c8c; color: white; text-align: center; ">
+                   <span id="errorMess"  style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"></span>
+                </div>
+            </form>
+        </div>
+   </div>
+</section>
+{% endblock %}
