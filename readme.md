@@ -2,7 +2,7 @@
 # 后台管理员:
 
 首页：
-<img src="https://github.com/Miki-Hunter/Dining/blob/master/demo_img/to_admin_index.png" width="100%">
+<img src="demo_img/to_admin_index.png" width="100%">
 
 店铺管理:
 <img src="https://github.com/Miki-Hunter/Dining/blob/master/demo_img/to_admin_shop.png" width="100%">
