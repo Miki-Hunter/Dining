@@ -4,7 +4,6 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/mobile" />
       <excludeFolder url="file://$MODULE_DIR$/static/img" />
-      <excludeFolder url="file://$MODULE_DIR$/static/web/img" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
