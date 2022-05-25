@@ -16,11 +16,9 @@ class ShopMiddleware:
         urllist = ['/myadmin/login','/myadmin/logout','/myadmin/dologin']
         #判断当前请求url地址是否是以/myadmin开头,并且不在urllist中，才做是否登录判断
         if re.match(r'^/myadmin',path) and (path not in urllist):#判断是否登录(在于session中没有adminuser)
-            print("myadmin now")
             if 'adminuser' not in request.session: #重定向到登录页
                 return redirect(reverse("myadmin_login"))
         if re.match(r"^/web", path):# 判断当前请求是否是访问网站前台
-            print("web now")
             if "webuser" not in request.session:
                 return redirect(reverse('web_login')) # 执行登录界面跳转
         response = self.get_response(request)
