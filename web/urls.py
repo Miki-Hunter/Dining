@@ -12,7 +12,8 @@ urlpatterns = [
     path('register', login.register, name="web_register"),
     path('logout', login.logout, name="web_logout"),
     path('edit/<int:mid>', login.edit, name="web_edit"),
-    path('reg', index.reg,name="web_email"),
+    path('email_send', index.email_send,name="email_send"),
+    path('send_email', index.send_email,name="send_email"),
     path('recharge', index.recharge,name="web_recharge"),
 
     path('open_web/',include([

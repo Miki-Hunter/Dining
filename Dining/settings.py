@@ -130,7 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 settings_dir = os.path.dirname(__file__)
-PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir)) # 记录一下当前路径，因为相对路径有时候抽风了。。。
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -138,13 +138,14 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# #邮件相关配置
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'# 发送邮件配置
-# EMAIL_HOST = 'smtp.gmail.com'# 服务器名称
-# EMAIL_PORT = 25# 服务端口
-# EMAIL_HOST_USER = 'mikihunter11234@gamil.com' # 填写自己邮箱
-# EMAIL_HOST_PASSWORD = '6375090445'# 在邮箱中设置的客户端授权密码
-# EMAIL_FROM = '董*'# 收件人看到的发件人
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# EMAIL_USE_TLS = True   #是否使用TLS安全传输协议
-# #EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
+#邮件相关配置
+
+EMAIL_HOST = 'smtp.gmail.com'# 服务器名称
+EMAIL_PORT = 587# 服务端口
+EMAIL_HOST_USER = 'diningcx@gmail.com' # 填写自己邮箱
+EMAIL_HOST_PASSWORD = 'oihuvupaondhxqbh'# 在邮箱中设置的客户端授权密码
+EMAIL_FROM = '子衿'# 收件人看到的发件人
+EMAIL_USE_TLS = True   #是否使用TLS安全传输协议
+EMAIL_USE_SSL = False    #是否使用SSL加密，qq企业邮箱要求使用
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'# 发送邮件配置
+

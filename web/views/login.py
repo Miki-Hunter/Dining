@@ -143,6 +143,8 @@ def logout(request):
     """执行退出"""
     # request.session.flush()  # 删除当前的会话数据和会话cookie。经常用在用户退出后，删除会话
     del request.session['webuser']
+    del request.session['email_code']
+    del request.session['email']
     request.session['member_is_login'] = False
     message = "成功退出登录!"
     return render(request, 'web/index.html', locals())  # 跳转首页

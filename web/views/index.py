@@ -1,7 +1,12 @@
+import json
+import random
 from datetime import datetime
+from Dining.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.conf import settings
 
-from django.core.paginator import Paginator
-from django.shortcuts import render
 
 from myadmin.models import User, Shop, Category, Product, Member, Orders
 
@@ -79,48 +84,47 @@ def recharge(request):
 
     return render(request, 'web/recharge.html',locals())
 
-# def sendMessage(email):  # 发送邮件并返回验证码
-#     # 生成验证码
-#     import random
-#     str1 = '01234567897823412343204726371673zqscfwfwjxixqiqoeywrtezxzncvvzqvdwobxsu'
-#     rand_str = ''
-#     for i in range(0, 6):
-#         rand_str += str1[random.randrange(0, len(str1))]
-#     # 发送邮件：
-#     # send_mail的参数分别是  邮件标题，邮件内容，发件箱(settings.py中设置过的那个)，收件箱列表(可以发送给多个人),失败静默(若发送失败，报错提示我们)
-#     message = "您的验证码是" + rand_str + "，10分钟内有效，请尽快填写"
-#     emailBox = []
-#     emailBox.append(email)
-#     send_mail('怪奇物语', message, 'mikihunter11235@gmail.com', emailBox, fail_silently=False)
-#     return rand_str
-#
-#
-# # 验证该用户是否已存在 created = 1 存在
-# def existUser(email):
-#     created = 1
-#     try:
-#         Member.objects.get(email=email)
-#     except:
-#         created = 0
-#     return created
-#
-#
-def reg(request):
-    pass
-#     if request.POST.get('type') == 'sendMessage':
-#         print(request.POST.get('email'))
-#         email = request.POST.get('email')
-#         response = {"state": False, "errmsg": ""}
-#
-#         if existUser(email):
-#             response['errmsg'] = '该用户已存在，请登录'
-#         else:
-#             try:
-#                 rand_str = sendMessage(email)  # 发送邮件
-#                 request.session['verify'] = rand_str  # 验证码存入session，用于做注册验证
-#                 response['state'] = True
-#             except:
-#                 response['errmsg'] = '验证码发送失败，请检查邮箱地址'
-#         return HttpResponse(json.dumps(response))
-#     else:
-#         return render(request, 'web/email.html', locals())  # 跳转首页
+
+# 产生验证码
+def random_str():
+    _str = '1QWERTT2YUIOP34LKJHG565FDSA567ZXCV890abcdWRGVGSfgh2123ijklmVBNMnopqrstu43vwxyz'
+    return ''.join(random.choice(_str) for i in range(6))
+
+
+def email_send(request):
+    request.session.flush()
+    info = '请您输入邮箱信息！'
+    return render(request, 'web/email.html', locals())
+
+
+def send_email(request):
+    if request.method == 'GET':
+        try:
+            email = request.GET.get("email")
+            print(email)
+            if email.find("@") == -1 or not (email.endswith('.com') or email.endswith('.cn')):
+                message = '请您检查邮箱输入是否正确！'
+            elif not Member.objects.get(email=email):
+                message = '该邮箱地址未注册!'
+            else:
+                email_code = random_str()
+                msg = '您的验证码：%s \n晨曦实业欢迎您的光临！\n输入验证码请注意区分大小写哦！' %email_code
+                send_mail('邮箱验证', msg, settings.DEFAULT_FROM_EMAIL, [email])
+                request.session['email_code'] = email_code  # 将验证码保存到session中在接下来的操作中进行验证
+                request.session['email'] = email
+                info = '验证码发送成功，请注意查收！'
+            return render(request, 'web/email.html',locals())
+        except:
+            message = '验证码发送失败！请检查您的邮箱！'
+            return render(request, 'web/email.html',locals())
+    else:
+        # 验证验证码是否输入正确
+        if request.POST['email_code'] == request.session['email_code']:
+            message = '您已成功通过验证码登录!'
+            ob = Member.objects.get(email=request.POST['email'])
+            request.session['webuser'] = ob.toDict()
+            request.session['member_is_login'] = True
+            return render(request, 'web/index.html', locals())
+        else:
+            message = '验证码错误！'
+            return render(request, 'web/email.html',locals())

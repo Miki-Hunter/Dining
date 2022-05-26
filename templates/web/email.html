@@ -1,32 +1,56 @@
 {% extends "web/base.html" %}
 {% block main_body %}
-<section class="contact-page-area section-gap">
-        <div class="container">
+
+    <section class="contact-page-area section-gap">
+                    {% if message %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    {% if info %}
+                        <div class="alert alert-success">{{ info }}</div>
+                    {% endif %}
+            <div class="container">
         <div class="col-md-6 col-md-offset-6">
-            <form id="form" name="form" action="{% url 'web_email' %}" method="post" class="form-horizontal col-md-offset-3 "  style="margin-top:20px" >
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="email">邮箱:</label>
-                        <div>
-                            <input type="text" name="email" id="email" class="form-control"  placeholder="请输入你的邮箱">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="vertify" >验证码:</label>
-                        <div >
-                            <div class="input-group">
-                                <input type="text" name="vertify" id="vertify" class="form-control"  placeholder="请输入校验码">
-                                <span class="input-group-btn">
-                                    <input type="button" id="sendEmail" class="btn btn-default" value="获取验证码">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                <div id="messBox" style="display: none;position: fixed; width: 300px;height: 35px; top:50%; left:40%; z-index:10; border-radius: 10%; background-color:#8c8c8c; color: white; text-align: center; ">
-                   <span id="errorMess"  style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"></span>
+            <form action="{% url 'send_email' %}" method="get" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>您的邮箱：</label>
+                     <input type="text" name="email" class="form-control" placeholder='{{ request.session.email }}' />
                 </div>
+                <button type="submit" class="btn btn-primary">发送验证码</button>
             </form>
+            <div class="form-group"></div>
+                <form action="{% url 'send_email' %}" method="post" >
+                    {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" name="email" class="form-control" value="{{ request.session.email }}" />
+                    <label>您的验证码：</label>
+                <input type="text" class="form-control" name="email_code">
+                </div>
+                    {% if request.session.email_code %}
+                            <button type="submit" class="btn btn-primary pull-left">提交</button>
+
+                    {% else %}
+                            <button type="reset" class="btn btn-primary pull-left">-提交-</button>
+
+                    {% endif %}
+                </form>
+        <a href="{% url 'email_send' %}"><button class="btn btn-primary pull-right">重置</button></a>
         </div>
-   </div>
-</section>
+            </div>
+
+        </section>
 {% endblock %}
+{#{% block loadjavascript %}#}
+{#<script type="text/javascript">#}
+{#    $('#verify').click(function () {#}
+{#        $.ajax({#}
+{#            type:'GET',#}
+{#            url:'/send_email/',#}
+{#            data:{'email':$('#email').val()},#}
+{#            success:function (result) {#}
+{#                alert('发送成功！');#}
+{#            }#}
+{#        });#}
+{#    });#}
+{#</script>#}
+{#{% endblock %}#}
