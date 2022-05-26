@@ -142,8 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = 'smtp.gmail.com'# 服务器名称
 EMAIL_PORT = 587# 服务端口
-EMAIL_HOST_USER = 'diningcx@gmail.com' # 填写自己邮箱
-EMAIL_HOST_PASSWORD = 'oihuvupaondhxqbh'# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_USER = 'your@gmail.com' # 填写自己邮箱
+EMAIL_HOST_PASSWORD = 'yourpassword'# 在邮箱中设置的客户端授权密码
 EMAIL_FROM = '子衿'# 收件人看到的发件人
 EMAIL_USE_TLS = True   #是否使用TLS安全传输协议
 EMAIL_USE_SSL = False    #是否使用SSL加密，qq企业邮箱要求使用
