@@ -28,7 +28,7 @@ def index(request):
 
 def login(request):
     login_form = UserForm()
-    return render(request, 'myadmin/index/login.html', locals())
+    return render(request, 'myadmin/index/tologin.html', locals())
 
 def dologin(request):
     info = ""
@@ -65,7 +65,7 @@ def dologin(request):
             info = "请您认真填写内容！"
     print(info)
     login_form = UserForm()
-    return render(request, "myadmin/index/login.html", locals())
+    return render(request, "myadmin/index/tologin.html", locals())
 
 
 def logout(request):

@@ -115,6 +115,7 @@ def send_email(request):
                 info = '验证码发送成功，请注意查收！'
             return render(request, 'web/email.html',locals())
         except:
+            # request.session['email'] = request.GET.get("email")
             message = '验证码发送失败！请检查您的邮箱！'
             return render(request, 'web/email.html',locals())
     else:
@@ -128,3 +129,5 @@ def send_email(request):
         else:
             message = '验证码错误！'
             return render(request, 'web/email.html',locals())
+
+

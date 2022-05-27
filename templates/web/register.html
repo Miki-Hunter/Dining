@@ -1,6 +1,12 @@
 {% extends "web/base.html" %}
 {% block main_body %}
-        <section class="relative about-banner">
+        {% if message %}
+                  <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ message }}
+                  </div>
+                {% endif %}
+        <section class="about-banner relative">
             <div class="overlay overlay-bg"></div>
             <div class="container">
                 <div class="row d-flex align-items-center justify-content-center">
@@ -13,9 +19,6 @@
                 </div>
             </div>
         </section>
-              {% if message %}
-                  <div class="alert alert-danger hide">{{ message }}</div>
-              {% endif %}
         <section class="contact-page-area section-gap">
             <div class="container">
         <div class="col-md-6 col-md-offset-6">

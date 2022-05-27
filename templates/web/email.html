@@ -1,13 +1,16 @@
 {% extends "web/base.html" %}
 {% block main_body %}
-
-    <section class="contact-page-area section-gap">
                     {% if message %}
-                        <div class="alert alert-danger">{{ message }}</div>
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}</div>
                     {% endif %}
                     {% if info %}
-                        <div class="alert alert-success">{{ info }}</div>
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ info }}</div>
                     {% endif %}
+    <section class="contact-page-area section-gap">
             <div class="container">
         <div class="col-md-6 col-md-offset-6">
             <form action="{% url 'send_email' %}" method="get" >

@@ -59,7 +59,7 @@ def register(request):
                 ob.save()
                 info = '注册成功！'
                 login_form = UserForm()
-                return render(request, 'web/login.html', locals())
+                return render(request, 'web/tologin.html', locals())
         except Exception as err:
             print(err)
             message = '注册失败！'
@@ -69,7 +69,7 @@ def register(request):
 def login(request):
     """加载登录页面"""
     login_form = UserForm()
-    return render(request, 'web/login.html', locals())
+    return render(request, 'web/tologin.html', locals())
 
 def dologin(request):
     """执行登录"""
@@ -102,7 +102,7 @@ def dologin(request):
         else:
             message = "请您认真填写内容！"
     login_form = UserForm()
-    return render(request, 'web/login.html', locals())
+    return render(request, 'web/tologin.html', locals())
 
 def edit(request, mid):
     if request.method == "POST":
@@ -141,10 +141,10 @@ def edit(request, mid):
 
 def logout(request):
     """执行退出"""
-    # request.session.flush()  # 删除当前的会话数据和会话cookie。经常用在用户退出后，删除会话
-    del request.session['webuser']
-    del request.session['email_code']
-    del request.session['email']
-    request.session['member_is_login'] = False
+    request.session.flush()  # 删除当前的会话数据和会话cookie。经常用在用户退出后，删除会话
+    # del request.session['webuser']
+    # del request.session['email_code']
+    # del request.session['email']
+    # request.session['member_is_login'] = False
     message = "成功退出登录!"
     return render(request, 'web/index.html', locals())  # 跳转首页

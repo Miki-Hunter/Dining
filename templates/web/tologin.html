@@ -1,0 +1,55 @@
+﻿{% extends "web/base.html" %}
+{% block main_body %}
+    {% if message %}
+                  <div class="alert alert-danger" style="margin-top:-23px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ message }}
+                  </div>
+                {% endif %}
+    {% if info %}
+                  <div class="alert alert-success " style="margin-top:-23px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ info }}
+                  </div>
+                {% endif %}
+        <section class="about-banner relative" style="margin-top:-23px">
+            <div class="overlay overlay-bg"></div>
+            <div class="container">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="about-content col-lg-12">
+                        <h1 class="text-white">
+                            Contact Us
+                        </h1>
+                        <p class="text-white link-nav"><a href="#">Home </a><span class="lnr lnr-arrow-right"></span>  <a href="#"> Contact Us</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contact-page-area section-gap">
+            <div class="container">
+                <div class="col-md-6 col-md-offset-6">
+                  <form action="{% url 'web_dologin' %}" method="post">
+                      {% csrf_token %}
+                      <h2 class="text-center">欢迎登录</h2>
+                      <div class="form-group">
+                          {{ login_form.name.label_tag }}
+                          {{ login_form.name}}
+                      </div>
+                      <div class="form-group">
+                          {{ login_form.password.label_tag }}
+                          {{ login_form.password }}
+                      </div>
+                      <div class="form-group">
+                          {{ login_form.captcha.errors }}
+                          {{ login_form.captcha.label_tag }}
+                          {{ login_form.captcha }}
+                      </div>
+                      <button type="reset" class="btn btn-default pull-left">重置</button>
+                      <button type="submit" class="btn btn-primary pull-right">提交</button>
+                  </form>
+                    <br><br>
+                    <a href="{% url 'email_send' %}">忘记密码？</a>
+                </div>
+            </div>
+        </section>
+{% endblock %}

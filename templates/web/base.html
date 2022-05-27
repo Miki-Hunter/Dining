@@ -1,16 +1,15 @@
 ﻿<!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <title>晨曦实业网上订单前台</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="{% static 'web/img/fav.png">
+        <link rel="shortcut icon" href="{% static 'web/img/fav.png' %}">
         <meta name="author" content="colorlib">
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta charset="UTF-8">
 <!--        <meta name="toTop" content="true">-->
-
         <link rel="stylesheet" href="{% static 'web/css/bootstrap.css'%}">
         <link rel="stylesheet" href="{% static 'web/css/linearicons.css'%}">
         <link rel="stylesheet" href="{% static 'web/css/font-awesome.min.css'%}">
@@ -21,15 +20,13 @@
         <link rel="stylesheet" href="{% static 'web/css/owl.carousel.css'%}">
         <link rel="stylesheet" href="{% static 'web/css/style.css'%}">
         <![endif]-->
-<!--        <link rel="stylesheet" href="{% static 'myadmin/local/css/google_fonts.css'%}">-->
-<!--        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
 <style>
         .alert{
             position: fixed;
-            width: 50%;
-            margin-left: 20%;
+            width: 30%;
+            margin-right: 10%;
             z-index: 2000;
         }
     </style>
@@ -189,8 +186,6 @@
                 </div>
             </div>
         </footer>
-
-<!--        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
 	    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="{% static 'web/js/vendor/jquery-2.2.4.min.js'%}"></script>
         <script src="{% static 'web/js/jquery-ui.js'%}"></script>
@@ -221,65 +216,7 @@
         },1000);//显示的时间
     })
 </script>
-<!--    购物车结算工作-->
-<script>
-    function dosubmit(){
-        if($("table.table-striped tr").length==1){
-            alert("购物车没有菜品信息！");
-            return;
-        }
-        if(!window.confirm("确定要进行结算？")){
-            return;
-        }
-        var ptype = $("input[name='ptype']:checked").val();
-        var bank = $("input[name='bank']:checked").val();
-        $.ajax({
-            type:'get',
-            url:"{% url 'web_orders_insert' %}",
-            dataType:'text',
-            data:{ptype:ptype,bank:bank},
-            async: false,
-            success:function(res){
-                if(res == "Y"){
-                    alert("订单添加成功！");
-                    window.location.href="{% url 'cart_index'%}";
-                }else{
-                    alert("订单处理失败！");
-                }
-            },
-        });
 
-    }
-</script>
-<!--&lt;!&ndash;    解决历史订单工作->-->
-<script>
-        function doShow(id){
-            $.ajax({
-                type:'get',
-                url:"{% url 'web_orders_detail' %}",
-                dataType:'text',
-                data:{oid:id},
-                async: false,
-                success:function(res){
-                    $("#myModal div.modal-body").empty().append(res);
-                    $('#myModal').modal({keyboard:false})
-                },
-            });
-        }
-
-        function doChangeStatus(id,s){
-            var info = ["","","确定要删除订单吗？","确定要完成此订单吗？"];
-            if(window.confirm(info[s])){
-                $.get("{% url 'web_orders_status' %}",{oid:id,status:s},function(data){
-                    if(data == "Y"){
-                        $("tr.oid"+id).remove();
-                    }else{
-                        alert("订单处理失败！");
-                    }
-                },'text');
-            }
-        }
-    </script>
 <!--    一个固定按钮-->
 <style>
 .d2 {
@@ -296,144 +233,9 @@
   top: 10px;
 }
     </style>
-<!--        邮箱验证-->
-<script>
-    //展现显现错误提示信息
-    function showError(message) {
-        document.getElementById("messBox").style.display="block";
-        $("#errorMess").html(message);//修改span标签内容
-        setTimeout("hidden()",2000);
-    }
-    //隐藏错误提示信息
-    function hidden() {
-        document.getElementById("messBox").style.display="none";}
-    //邮箱验证
-    function testEmail(str) {
-        var re = /^\w+@[0-9a-z]+\.[a-z]+$/;
-        return re.test(str);
-    }
-
-$("#sendEmail").click(function () {
-        var email = $("#email").val();//获取用户输入邮箱
-        if(email===''||!testEmail(email)) {//验证邮箱格式
-            showError('邮箱格式不正确，请重输');}
-        else{
-            //按钮不可再次点击，开始倒计时
-            $.ajax({
-                url:"/reg/",
-                type:"post",
-                data:{
-                    type:'sendMessage',
-                    csrfmiddlewaretoken:'{{ csrf_token }}',
-                    email:email
-                },
-                dataType :"json",
-                success:function (reg) {
-                    // 短信发送失败
-                    if(!reg.state){
-                        showError(reg.errmsg);}
-                    else{
-                        console.log(reg.state);
-                        settime();//短信发送成功，倒计时
-                    }
-                }
-            });
-            var btn_sendEmail = $("#sendEmail");
-            var countdown=60;
-            function settime() {
-              if (countdown === 0) {
-                btn_sendEmail.attr("disabled",false);
-                btn_sendEmail.val("获取验证码");
-                return false;
-              } else {
-                btn_sendEmail.attr("disabled", true);
-                btn_sendEmail.val("重新发送(" + countdown + ")");
-                countdown--;
-              }
-              setTimeout(function() {
-                settime();
-              },1000);
-            }
-        }
-    });
-</script>
-<!--        提示框-->
 
 {% block loadjavascript %}
 <!-- 此处可加载独立的javascript程序 -->
 {% endblock %}
-<script>
-    var scrolltotop={
-    setting: {startline:200, scrollto: 0, scrollduration:1000, fadeduration:[800, 500]},
-    controlHTML: '<img src="/static/web/img/scroll.png" style="width:50px; height:50px" />',
-    controlattrs: {offsetx:20, offsety:75},
-    anchorkeyword: '#top', //Enter href value of HTML anchors on the page that should also act as "Scroll Up" links
-
-    state: {isvisible:false, shouldvisible:false},
-
-    scrollup:function(){
-        if (!this.cssfixedsupport) //if control is positioned using JavaScript
-            this.$control.css({opacity:0}) //hide control immediately after clicking it
-        var dest=isNaN(this.setting.scrollto)? this.setting.scrollto : parseInt(this.setting.scrollto)
-        if (typeof dest=="string" && jQuery('#'+dest).length==1) //check element set by string exists
-            dest=jQuery('#'+dest).offset().top
-        else
-            dest=0
-        this.$body.animate({scrollTop: dest}, this.setting.scrollduration);
-    },
-
-    keepfixed:function(){
-        var $window=jQuery(window)
-        var controlx=$window.scrollLeft() + $window.width() - this.$control.width() - this.controlattrs.offsetx
-        var controly=$window.scrollTop() + $window.height() - this.$control.height() - this.controlattrs.offsety
-        this.$control.css({left:controlx+'px', top:controly+'px'})
-    },
-
-    togglecontrol:function(){
-        var scrolltop=jQuery(window).scrollTop()
-        if (!this.cssfixedsupport)
-            this.keepfixed()
-        this.state.shouldvisible=(scrolltop>=this.setting.startline)? true : false
-        if (this.state.shouldvisible && !this.state.isvisible){
-            this.$control.stop().animate({opacity:0.5}, this.setting.fadeduration[0])
-            this.state.isvisible=true
-        }
-        else if (this.state.shouldvisible==false && this.state.isvisible){
-            this.$control.stop().animate({opacity:0}, this.setting.fadeduration[1])
-            this.state.isvisible=false
-        }
-    },
-
-
-    init:function(){
-        jQuery(document).ready(function($){
-            var mainobj=scrolltotop
-            var iebrws=document.all
-            mainobj.cssfixedsupport=!iebrws || iebrws && document.compatMode=="CSS1Compat" && window.XMLHttpRequest
-            mainobj.$body=(window.opera)? (document.compatMode=="CSS1Compat"? $('html') : $('body')) : $('html,body')
-            mainobj.$control=$('<div id="topcontrol">'+ controlHTML +'</div>')
-                .css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer'})
-                .attr({title:'Scroll to Top'})
-                .mouseenter(function() { $(this).css("opacity", "1");})
-                .mouseleave(function() { $(this).css("opacity", "0.5");})
-                .click(function(){mainobj.scrollup(); return false})
-                .appendTo('body')
-            if (document.all && !window.XMLHttpRequest && mainobj.$control.text()!='')
-                mainobj.$control.css({width:mainobj.$control.width()})
-            mainobj.togglecontrol()
-            $('a[href="' + mainobj.anchorkeyword +'"]').click(function(){
-                mainobj.scrollup()
-                return false
-            })
-            $(window).bind('scroll resize', function(e){
-                mainobj.togglecontrol()
-            })
-        })
-    }
-}
-scrolltotop.init()
-
-
-</script>
    </body>
 </html>

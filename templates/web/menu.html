@@ -1,7 +1,12 @@
 ﻿{% extends "web/base.html" %}
-{% load static %}
 {% block main_body %}
-            <section class="banner-area">
+        {% if info %}
+                  <div class="alert alert-success " style="margin-top:-23px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ info }}
+                  </div>
+                {% endif %}
+            <section class="about-banner relative"  style="margin-top:-23px">
                 <div class="overlay overlay-bg"></div>
                 <div class="container">
                     <div class="row d-flex align-items-center justify-content-center">
@@ -9,16 +14,14 @@
                             <h1 class="text-white">
                                 Menus
                             </h1>
-                            <p class="text-white link-nav"><a href="{% url 'index_index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'cart_index' %}"> Cart</a></p>
+                            <p class="text-white link-nav"><a href="{% url 'index_index' %}">Home </a>
+                                <span class="lnr lnr-arrow-right"></span>
+                                <a href="{% url 'web_menu' %}"> Menus</a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </section>
-                {% if info %}
-                  <div class="alert alert-success hide">
-                      {{ info }}
-                  </div>
-                {% endif %}
             <section class="menu-area section-gap" id="menu">
                 <div class="container-fluid">
                     <ul class="filter-wrap filters col-lg-12 no-padding">
@@ -33,7 +36,6 @@
                     </ul>
                 </div>
                 <div class="container">
-<!--                    <div class="filters-content">-->
                         <div class="row grid">
                             <form action="{% url 'cart_index'  %}" method="post">
                             {% for vo in breakfast %}
@@ -276,9 +278,7 @@
                             {% endfor %}
                             </form>
                         </div>
-<!--                    </div>                   -->
                 </div>
-
             </section>
 {% endblock %}
 

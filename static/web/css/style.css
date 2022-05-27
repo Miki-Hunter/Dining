@@ -460,7 +460,6 @@ body.mobile-nav-active #mobile-nav-toggle{color:#fff}
     -o-transition:all 0.3s ease 0s;
     transition:all 0.3s ease 0s;
     cursor:pointer;
-    position:relative;
 }
 .primary-btn:focus{outline:none}
 .primary-btn span{color:#fff;position:absolute;top:50%;transform:translateY(-60%);right:30px;-webkit-transition:all 0.3s ease 0s;-moz-transition:all 0.3s ease 0s;-o-transition:all 0.3s ease 0s;transition:all 0.3s ease 0s}
@@ -530,9 +529,9 @@ body.mobile-nav-active #mobile-nav-toggle{color:#fff}
     margin-top: 150px;
 }
 .about-banner {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
-@media (max-width: 767px){.banner-area{height:767px !important}}
+@media (max-width: 767px){.banner-area{height:300px !important}}
 @media (max-width: 1024px){
     .banner-content{
         margin-top:150px;
@@ -1115,11 +1114,10 @@ h1.mb-10 {
 .single-blog h4{margin-bottom:12px;-webkit-transition:all 0.3s ease 0s;-moz-transition:all 0.3s ease 0s;-o-transition:all 0.3s ease 0s;transition:all 0.3s ease 0s}
 .single-blog a{color:#222}
 .single-blog .date{background-color:#000;color:#fff;font-weight:100;padding:2px 15px;width:115px;text-align:center;margin-top:20px}
-@media (max-width: 991px){.single-blog{margin-bottom:30px}}
-.link-nav{margin-top:10px;margin-bottom:0px}
+@media (max-width: 991px){.single-blog{margin-bottom:0px}}
+.link-nav{margin-top:0px;margin-bottom:0px}
 .about-banner{
     background:url(../img/slider/info-slider.png) no-repeat bottom right/cover;
-    background-size:cover;
 }
 .about-banner .overlay-bg{background:rgba(4,9,30,0.4)}
 .about-content{margin-top:185px;padding:90px 0px;text-align:center}
@@ -1313,7 +1311,7 @@ h1.mb-10 {
 .comment-form :-moz-placeholder{font-size:13px;color:#777}
 .comment-form .primary-btn{border-radius:0px !important;border:1px solid transparent;color:#fff;font-weight:600}
 .comment-form .primary-btn:hover{background:transparent;border-color:#e52b34 !important;color:#e52b34 !important}
-.contact-page-area{background:#f9f9ff}.contact-page-area .map-wrap{margin-bottom:120px}
+.contact-page-area{background:#f9f9ff}.contact-page-area .map-wrap{margin-bottom:0px}
 @media (max-width: 991px){.contact-page-area .map-wrap{margin-bottom:50px}}
 .contact-page-area .contact-btns{font-size:18px;font-weight:600;text-align:center;padding:40px;color:#fff;margin-bottom:30px}
 .contact-page-area .contact-btns:hover{color:#fff}
