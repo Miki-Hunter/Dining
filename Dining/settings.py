@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'Dining.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'osdb',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'yourname',
+        'USER': 'youruser',
+        'PASSWORD': 'yourpassword',
         'HOST': 'localhost',
         'PORT': '3306',
     }
