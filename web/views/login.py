@@ -59,7 +59,7 @@ def register(request):
                 ob.save()
                 info = '注册成功！'
                 login_form = UserForm()
-                return render(request, 'web/tologin.html', locals())
+                return render(request, 'web/login.html', locals())
         except Exception as err:
             print(err)
             message = '注册失败！'
@@ -69,7 +69,7 @@ def register(request):
 def login(request):
     """加载登录页面"""
     login_form = UserForm()
-    return render(request, 'web/tologin.html', locals())
+    return render(request, 'web/login.html', locals())
 
 def dologin(request):
     """执行登录"""
@@ -102,7 +102,7 @@ def dologin(request):
         else:
             message = "请您认真填写内容！"
     login_form = UserForm()
-    return render(request, 'web/tologin.html', locals())
+    return render(request, 'web/login.html', locals())
 
 def edit(request, mid):
     if request.method == "POST":

@@ -10,12 +10,12 @@
   </style>
     <section class="content-header">
       <h1>
-        会员管理
+        用户管理
         <small>订餐系统后台管理</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{% url 'myadmin_index' %}"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">会员管理</li>
+        <li class="active">用户管理</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -24,7 +24,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h2 class="box-title"> <span class="glyphicon glyphicon-calendar" aria-hidden="true">编辑会员信息</span></h2>
+              <h2 class="box-title"> <span class="glyphicon glyphicon-calendar" aria-hidden="true">编辑用户信息</span></h2>
             </div>
             <form class="form-horizontal" action="{% url 'myadmin_member_update' member.id %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}

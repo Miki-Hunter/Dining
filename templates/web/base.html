@@ -28,6 +28,7 @@
             width: 30%;
             margin-right: 10%;
             z-index: 2000;
+            animation: show 2s;
         }
     </style>
 <!--        图片显示为圆图-->
@@ -202,20 +203,6 @@
         <script src="{% static 'web/js/scroll.js'%}"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <!--    提示框显示问题-->
-<script>
-    $("#btn1").click(function(){
-        $(".alert-warning").addClass("show");
-        window.setTimeout(function(){
-            $(".alert-warning").removeClass("show");
-        },1000);//显示的时间
-    })
-    $("#btn2").click(function(){
-        $(".alert-success").addClass("show");
-        window.setTimeout(function(){
-            $(".alert-success").removeClass("show");
-        },1000);//显示的时间
-    })
-</script>
 
 <!--    一个固定按钮-->
 <style>

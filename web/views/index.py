@@ -1,14 +1,14 @@
 import json
 import random
 from datetime import datetime
-from Dining.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.conf import settings
+from django import forms
 
 
 from myadmin.models import User, Shop, Category, Product, Member, Orders
+
 
 # 前台首页
 def index(request):
