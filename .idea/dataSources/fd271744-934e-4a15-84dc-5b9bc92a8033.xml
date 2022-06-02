@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Django default">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.31">
+    <root id="1">
+      <DefaultCasing>lower/lower</DefaultCasing>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+      <ServerVersion>5.7.36</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="createnew">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="3" parent="1" name="djangoblog">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="4" parent="1" name="exam1">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="5" parent="1" name="information_schema">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="6" parent="1" name="mydemo">
+      <Collation>utf8mb4_general_ci</Collation>
+    </schema>
+    <schema id="7" parent="1" name="mysite_login">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="8" parent="1" name="mysql">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="9" parent="1" name="mytest">
+      <Collation>utf8mb4_general_ci</Collation>
+    </schema>
+    <schema id="10" parent="1" name="osdb">
+      <Collation>utf8_general_ci</Collation>
+      <Current>1</Current>
+    </schema>
+    <schema id="11" parent="1" name="performance_schema">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="12" parent="1" name="sys">
+      <Collation>utf8_general_ci</Collation>
+    </schema>
+    <schema id="13" parent="1" name="web">
+      <Collation>utf8mb4_general_ci</Collation>
+    </schema>
+  </database-model>
+</dataSource>
